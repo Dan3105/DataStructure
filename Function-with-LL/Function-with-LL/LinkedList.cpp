@@ -50,7 +50,7 @@ public:
 		return 1;
 	}
 
-	int append(T data)
+	int push_back(T data)
 	{
 		Node<T>* newNode = new Node<T>(data);
 		newNode->prev = tail;
@@ -85,7 +85,7 @@ public:
 			return 0;
 		}
 		if (pos == 1) { push_front(data); return 1; }
-		if (pos == len + 1) { append(data); return 1; }
+		if (pos == len + 1) { push_back(data); return 1; }
 		Node<T>* temp = head;
 		for (int i = 1; i < pos; i++)
 			temp = temp->next;
@@ -94,7 +94,7 @@ public:
 		return 1;
 	}
 
-	int insert_Order(T data, bool (*cmp)(T,T))
+	int insert_order(T data, bool (*cmp)(T,T))
 	{
 		Node<T>* temp = head;
 
@@ -109,7 +109,7 @@ public:
 			}
 			if (temp == tail)
 			{
-				append(data);
+				push_back(data);
 				return 1;
 			}
 			temp = temp->next;
@@ -119,17 +119,23 @@ public:
 	}
 	
 	//Delete
-	int pop_front() {
-		if(len==0) {
+	int pop_front() 
+	{
+		if(len==0) 
+		{	
 			std::cout << "List is empty" << std::endl;
 			return 0;
+
 		}
-		if(head == tail ) {
+		
+		if(head == tail) 
+		{	
 			delete head;
 			head = tail = NULL;
 			len--;
 			return 1;
 		}
+		
 		Node<T>* temp = head;
 		head = head->next;
 		head -> prev = NULL;
@@ -140,16 +146,20 @@ public:
 	}
 	
 	int pop_back() {
-		if(len==0) {
+		if(len==0) 
+		{
 			std::cout << "List is empty" << std::endl;
 			return 0;
 		}
-		if(head == tail ) {
+		
+		if(head == tail ) 
+		{
 			delete head;
 			head = tail = NULL;
 			len--;
 			return 1;
 		}
+		
 		Node<T>* temp = tail;
 		tail = tail->prev;
 		tail -> next = NULL;
@@ -160,8 +170,10 @@ public:
 		return 1;
 	}
 	
-	int remove_node(Node<T>* node) {
-		if(node == NULL) { 
+	int remove_node(Node<T>* node) 
+	{
+		if(node == NULL) 
+		{ 
 			std::cout << "Node does not exist" << std::endl;
 			return 0; 
 		}
@@ -179,37 +191,105 @@ public:
 		
 	}
 	
-	int remove_at(int pos) {
-		if(len==0) {
+	int remove_at(int pos) 
+	{
+		if(len==0) 
+		{
 			std::cout << "List is empty" << std::endl;
 			return 0;
 		}
-		if(pos<0 || pos >=len) {
+		if(pos<1 || pos>len) 
+		{
 			std::cout << "Out of range" << std::endl;
 			return 0;
 		}
 		if(pos==0) { pop_front(); return 1; }
-		if(pos==len-1) { pop_back(); return 1; }
+		if(pos==len) { pop_back(); return 1; }
 		Node<T>* temp;
-		if(pos<=len/2) {
+		
+		if(pos<=len/2) 
+		{
 			temp = head;
-			for(int i=1; i<=pos; ++i) {
+			for(int i=2; i<=pos; ++i) 
+			{
 				temp=temp->next;
 			}
-		} else {
+		} 
+		else 
+		{
 			temp = tail;
-			for(int i=len-1; i>pos; --i) {
+			for(int i=len; i>=pos; --i) 
+			{
 				temp=temp->prev;
 			}
 		}	
-		if (remove_node(temp)==1) {return 1;}
+		if (remove_node(temp)==1) { return 1; }
 		return 0;
 
 	}
 	
-	int getLen() { return len; }
+	int size() { return len; }
 
+
+	//Search
+	Node<T>* find_node(T element) 
+	{
+		if(len==0) 
+		{
+			std::cout << "List is empty" << std::endl;
+			return NULL;
+		}
+		Node<T>* curr = head;
+		while(curr!=NULL) 
+		{
+			if(curr->data == element) {
+				return curr;
+			}
+			curr = curr->next;
+		}
+		std::cout << "Node does not exist" << std::endl;
+		return NULL;
+	}
+	
+	DLList<T> find_all(T element) {	
+		DLList<T> res(0);
+		res.head = res.tail = NULL;
+		res.len=0;
+		if(len==0) 
+		{
+			std::cout << "List is empty" << std::endl;
+			return res;
+		}
+		
+		Node<T>* curr = head;
+		while(curr!=NULL) 
+		{
+			if(curr->data == element) 
+			{
+				if(res.head == NULL) 
+				{
+					Node<T> *temp = new Node<T>(curr->data);
+					res.head = res.tail = temp;
+					res.len=1;
+				} 
+				else 
+				{
+					res.push_back(curr->data);
+				}
+			}
+			curr = curr->next;
+		}
+		if(res.len==0) 
+		{
+			std::cout << "Nodes does not exist" << std::endl;
+		}
+		return res;
+	}
+	
 };
+
+
+
 
 template <typename T>
 inline void PrintDLL(DLList<T>& list)
