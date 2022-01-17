@@ -47,7 +47,8 @@ void test_delete(DLList<int> &m) {
 
 int main()
 {
-	//5:20
+	//19:15
+	//vlxx.non
 	DLList<int> m(4);
 	m.push_front(2);
 	m.push_front(8);
