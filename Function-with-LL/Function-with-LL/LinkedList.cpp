@@ -34,7 +34,6 @@ public:
 
 		len = 1;
 		head = new Node<T>(data);
-		head->data = data;
 		head->next = NULL;
 		head->prev = NULL;
 
@@ -44,7 +43,6 @@ public:
 	int push_front(T data)
 	{
 		Node<T>* newNode = new Node<T>(data);
-		newNode->data = data;
 		newNode->next = head;
 
 		head->prev = newNode;
@@ -57,7 +55,6 @@ public:
 	int push_back(T data)
 	{
 		Node<T>* newNode = new Node<T>(data);
-		newNode->data = data;
 		newNode->prev = tail;
 
 		tail->next = newNode;
@@ -70,7 +67,6 @@ public:
 	int insert(T data, Node<T>*& frNode)
 	{
 		Node<T>* newNode = new Node<T>(data);
-		newNode->data = data;
 
 		newNode->next = frNode;
 		

@@ -63,5 +63,4 @@ int main()
 	m.head = mergeSort(m.head, cmp);
 	cout << endl;
 	PrintDLL(m);
-	cout << endl << m.size();
 }
