@@ -47,10 +47,7 @@ void test_delete(DLList<int> &m) {
 
 int main()
 {
-	// Toi o day de check xem
-	// Co bi lap lai khong
-	// I'm here
-	// Something change
+	//sadfasdfksadfksdaflsd
 	DLList<int> m(4);
 	m.push_front(2);
 	m.push_front(8);
