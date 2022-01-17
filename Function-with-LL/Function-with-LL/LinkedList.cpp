@@ -220,7 +220,7 @@ public:
 			std::cout << "List is empty" << std::endl;
 			return NULL;
 		}
-		Node<T> *curr =head;
+		Node<T> *curr = head;
 		while (curr != NULL)
 		{
 			if (curr->data == element)

@@ -65,7 +65,11 @@ int main()
 	m.head = mergeSort(m.head, cmp);
 	cout << endl;
 	PrintDLL(m);
+	cout << endl;
 	Node<int>* temp = m.find_node(0);
-	cout << temp->data;
+	if(temp!=NULL) cout << "Find: " << temp->data;
+	DLList<int> Find = m.find_all(1);
+	cout << "List find: ";
+	PrintDLL(Find);
 	cout << endl << m.size();
 }
