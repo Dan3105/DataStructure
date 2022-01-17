@@ -217,7 +217,7 @@ public:
 	
 	int size() { return len; }
 	
-		Node<T> *find_node(T element)
+	Node<T> *find_node(T element)
 	{
 		if (len == 0)
 		{
