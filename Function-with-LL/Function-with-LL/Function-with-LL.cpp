@@ -61,6 +61,9 @@ int main()
 	//test_delete(m);
 	PrintDLL(m);
 	m.head = mergeSort(m.head, cmp);
+	DLList<int> curr=m.find_all(4);
+	cout << "list of find: ";
+	PrintDLL(curr);
 	cout << endl;
 	PrintDLL(m);
 }
