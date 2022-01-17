@@ -2,19 +2,20 @@
 //When you want to use algorithms that requires heavy insertionand removal, forget arrays.
 
 #include <cmath>
-#include <iostream>
+
+#include<iostream>
 template <typename T>
 struct Node
 {
 	T data;
-	Node *next = NULL;
-	Node *prev = NULL;
+	Node* next = NULL;
+	Node* prev = NULL;
 
-	Node(T _data) : data(_data){};
+	Node(T _data) : data(_data) {};
 };
 
 template <typename T>
-bool cmp(T const &t1, T const &t2)
+bool cmp(T const& t1, T const& t2)
 {
 	return t1 > t2;
 }
@@ -25,16 +26,14 @@ class DLList
 private:
 	bool isSort = false;
 	int len;
-
 public:
-	Node<T> *head;
-	Node<T> *tail;
-	DLList<T>(T data)
+	Node<T>* head;
+	Node<T>* tail;
+	DLList<T> (T data)
 	{
 
 		len = 1;
 		head = new Node<T>(data);
-		head = new Node<T>;
 		head->data = data;
 		head->next = NULL;
 		head->prev = NULL;
@@ -44,90 +43,80 @@ public:
 	//Insert
 	int push_front(T data)
 	{
-		Node<T> *newNode = new Node<T>(data);
+		Node<T>* newNode = new Node<T>(data);
+		newNode->data = data;
+		newNode->next = head;
 
-		int push_front(T data)
+		head->prev = newNode;
+
+		head = newNode;
+		++len;
+		return 1;
+	}
+
+	int push_back(T data)
+	{
+		Node<T>* newNode = new Node<T>(data);
+		newNode->data = data;
+		newNode->prev = tail;
+
+		tail->next = newNode;
+
+		tail = newNode;
+		++len;
+		return 1;
+	}
+
+	int insert(T data, Node<T>*& frNode)
+	{
+		Node<T>* newNode = new Node<T>(data);
+		newNode->data = data;
+
+		newNode->next = frNode;
+		
+		newNode->prev = frNode->prev;
+		
+		frNode->prev->next = newNode;
+		frNode->prev = newNode;
+
+		++len;
+		return 1;
+	}
+
+	int insert_at(T data, int pos)
+	{
+		if (pos > len + 1|| pos <= 0)
 		{
-			Node<T> *newNode = new Node<T>;
-			newNode->data = data;
-			newNode->next = head;
-
-			head->prev = newNode;
-
-			head = newNode;
-			++len;
-			return 1;
+			std::cout << "Error Insert" << std::endl;
+			return 0;
 		}
+		if (pos == 1) { push_front(data); return 1; }
+		if (pos == len + 1) { push_back(data); return 1; }
+		Node<T>* temp = head;
+		for (int i = 1; i < pos; i++)
+			temp = temp->next;
 
-		int push_back(T data)
+		insert(data, temp);
+		return 1;
+	}
+
+	int insert_order(T data, bool (*cmp)(T,T))
+	{
+		Node<T>* temp = head;
+
+		while (temp != NULL)
 		{
-			Node<T> *newNode = new Node<T>(data);
-			int append(T data)
+			
+			if (cmp(temp->data, data))
 			{
-				Node<T> *newNode = new Node<T>;
-				newNode->data = data;
-				newNode->prev = tail;
-
-				tail->next = newNode;
-
-				tail = newNode;
-				++len;
-				return 1;
-			}
-
-			int insert(T data, Node<T> * &frNode)
-			{
-				Node<T> *newNode = new Node<T>(data);
-				Node<T> *newNode = new Node<T>;
-				newNode->data = data;
-
-				newNode->next = frNode;
-
-				newNode->prev = frNode->prev;
-
-				frNode->prev->next = newNode;
-				frNode->prev = newNode;
-
-				++len;
-				return 1;
-			}
-
-			int insert_at(T data, int pos)
-			{
-				if (pos > len + 1 || pos <= 0)
-				{
-					std::cout << "Error Insert" << std::endl;
-					return 0;
-				}
-				if (pos == 1)
-				{
-					push_front(data);
-					return 1;
-				}
-				if (pos == len + 1)
-				{
-					push_back(data);
-					return 1;
-				}
-				if (pos == len + 1)
-				{
-					append(data);
-					return 1;
-				}
-				Node<T> *temp = head;
-				for (int i = 1; i < pos; i++)
-					temp = temp->next;
-
+				if (temp == head){ push_front(data); return 1; }	
 				insert(data, temp);
 				return 1;
 			}
-
-			int insert_order(T data, bool (*cmp)(T, T)) int insert_Order(T data)
+			if (temp == tail)
 			{
-				Node<T> *temp = head;
-
-				while (temp != NULL)
-				{
+				push_back(data);
+				return 1;
 			}
 			temp = temp->next;
 		}
